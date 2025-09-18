@@ -136,11 +136,11 @@ class OrderApiTest {
 
 	@Test
 	public void testInsertOrderWithoutCustumer() throws Exception {
-		List<Long> productsIds = List.of(1L);
+		List<String> productsIds = List.of("1L");
 		OrderRequest request = new OrderRequest("", productsIds);
 
 		when(customerRepository.findByCpf("02974127010")).thenReturn(Optional.empty());
-		ProductEntity entity = getProductEntity(1L, "LANCHE", "X Salada");
+		ProductEntity entity = getProductEntity("1L", "LANCHE", "X Salada");
 		List<ProductEntity> entities = List.of(entity);
 		when(productRepository.findByIdIn(productsIds)).thenReturn(entities);
 
@@ -179,14 +179,14 @@ class OrderApiTest {
 
 	@Test
 	public void testInsertOrderWithCustumer() throws Exception {
-		List<Long> productsIds = List.of(1L);
+		List<String> productsIds = List.of("1L");
 		OrderRequest request = new OrderRequest("02974127010", productsIds);
 
 		Customer customer = new Customer("02974127010", "Doug Funnt", "doug@emai.com");
 		CustomerEntity customerEntity = customerEntityMapper.toCustomerEntity(customer);
 		when(customerRepository.findByCpf("02974127010")).thenReturn(Optional.of(customerEntity));
 
-		ProductEntity entity = getProductEntity(1L, "LANCHE", "X Salada");
+		ProductEntity entity = getProductEntity("1L", "LANCHE", "X Salada");
 		List<ProductEntity> entities = List.of(entity);
 		when(productRepository.findByIdIn(productsIds)).thenReturn(entities);
 
@@ -224,7 +224,7 @@ class OrderApiTest {
 	}
 
 	
-	private ProductEntity getProductEntity(Long id, String status, String title) {
+	private ProductEntity getProductEntity(String id, String status, String title) {
 		UpdateProductRequest request3 = new UpdateProductRequest(id, title, status, "com bacon", new BigDecimal("8.0"),
 				"");
 		Product product = productMapper.toProduct(request3);
