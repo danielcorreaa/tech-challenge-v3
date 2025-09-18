@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.techchallenge.infrastructure.external.dtos.PaymentResponseML;
 
-@FeignClient(value = "payment", url = "${api.mercadolivre.payment}")
+@FeignClient( value = "payment", url = "${api.mercadolivre.payment}")
 public interface MercadoLivrePayment {	
 	
 	@GetMapping(path = "/{param}")
