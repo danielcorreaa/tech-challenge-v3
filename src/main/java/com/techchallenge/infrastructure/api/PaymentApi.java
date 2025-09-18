@@ -43,7 +43,9 @@ public class PaymentApi {
         if(StringUtils.isNotBlank(notificationUrl)){
             notification = notificationUrl;
         }
-		Payment payment = paymentUseCase.validPayment(request.orderId(), notification);
+        System.out.printf("notification: %s\n", notification);
+
+        Payment payment = paymentUseCase.validPayment(request.orderId(), notification);
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(new InputStreamResource(payment.getQrCode()));
 	}
 
